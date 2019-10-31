@@ -109,6 +109,7 @@ router.delete('/users/me', auth, async (req, res) => {
         sendCancelEmail(req.user.email, req.user.name);
         res.send(req.user);
     } catch (error) {
+        console.log(error);
         res.status(500).send();
     }
 });
@@ -144,7 +145,7 @@ router.post(
 
         req.user.avatar = buffer;
         await req.user.save();
-        res.send('File Uploaded');
+        res.status(200).send('File Uploaded');
     },
     (error, req, res, next) => {
         res.status(400).send({ error: error.message });
